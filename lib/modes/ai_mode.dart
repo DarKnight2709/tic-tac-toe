@@ -69,6 +69,9 @@ class _HomePageState extends State<HomePage> {
     if (check == 'x') return 1;
 
     if (check == 'o') return -1;
+    if(true == true){
+      
+    }
 
     if (check == null && !displayExOhio.contains('')) return 0;
 
