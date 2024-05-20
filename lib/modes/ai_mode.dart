@@ -15,16 +15,13 @@ class _HomePageState extends State<HomePage> {
   int aiPoint = 0;
   int yourPoint = 0;
 
-  int depth = 9;
 
-  String displayExOh = 'x';
+  String displayExOh = 'o';
   void _tapped(int index) {
     setState(() {
-      if (displayExOhio[index].isEmpty) {
-        if (displayExOh == 'x') {
-          displayExOhio[index] = 'o';
-          displayExOh = 'o';
-        }
+      if (displayExOhio[index] == '' && displayExOh == 'o') {
+        displayExOhio[index] = 'o';
+        displayExOh = 'x';
       }
 
       var checkwinner = checkWinner(displayExOhio);
@@ -47,31 +44,51 @@ class _HomePageState extends State<HomePage> {
             context: context,
             builder: (context) => const AlertDialog(title: Text("Draw")));
       }
+
+
       int bestmove = 0;
-      int maxChoice = -2;
+      int maxVal = -2;
       for (int i = 0; i < displayExOhio.length; i++) {
         if (displayExOhio[i] == '') {
-          int miniMove = miniMax(i, depth - 1, true);
-          if (miniMove > maxChoice) {
-            maxChoice = miniMove;
+          displayExOhio[i] = 'x';
+          int eval1 = miniMax(false);
+          displayExOhio[i] = '';
+          if(eval1 > maxVal){
+            maxVal = eval1;
             bestmove = i;
           }
         }
       }
-      displayExOhio[bestmove] = 'x';
-      displayExOh = 'x';
+      if(displayExOhio[bestmove] == '' && displayExOh == 'x'){
+        displayExOhio[bestmove] = 'x';
+        displayExOh = 'o';
+      }
+      
+
+      var checkwinner2 = checkWinner(displayExOhio);
+      if (checkwinner2 != null) {
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  title: Text(
+                      "The winner is ${checkwinner2 == 'x' ? 'AI' : 'You'}"),
+                ));
+        if (checkwinner2 == 'x') {
+          ++aiPoint;
+        } else {
+          ++yourPoint;
+        }
+      }
     });
   }
 
-  int miniMax(int position, int depth, bool maximizingPlayer) {
+  int miniMax(bool maximizingPlayer) {
     var check = checkWinner(displayExOhio);
 
     if (check == 'x') return 1;
 
     if (check == 'o') return -1;
-    if(true == true){
-      
-    }
+    
 
     if (check == null && !displayExOhio.contains('')) return 0;
 
@@ -80,7 +97,7 @@ class _HomePageState extends State<HomePage> {
       for (int i = 0; i < displayExOhio.length; i++) {
         if (displayExOhio[i] == '') {
           displayExOhio[i] = 'x';
-          int eval1 = miniMax(i, depth - 1, false);
+          int eval1 = miniMax(false);
           displayExOhio[i] = '';
           maxVal = max(eval1, maxVal);
         }
@@ -92,7 +109,7 @@ class _HomePageState extends State<HomePage> {
       for (int i = 0; i < displayExOhio.length; i++) {
         if (displayExOhio[i] == '') {
           displayExOhio[i] = 'o';
-          int eval2 = miniMax(i, depth - 1, true);
+          int eval2 = miniMax(true);
           displayExOhio[i] = '';
           minVal = min(eval2, minVal);
         }
@@ -175,7 +192,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               setState(() {
                 displayExOhio = ['', '', '', '', '', '', '', '', ''];
-                displayExOh = 'x';
+                displayExOh = 'o';
               });
             },
             child: const Text("Restart",
