@@ -2,14 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/checkwinner.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class PlayerPage extends StatefulWidget {
+  const PlayerPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<PlayerPage> createState() => _PlayerPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _PlayerPageState extends State<PlayerPage> {
   List<String> displayExOhio = ['', '', '', '', '', '', '', '', ''];
 
   int player1 = 0;
@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
             )),
             const SizedBox(height: 40,),
             Expanded(
-              flex: 2,
+              flex: 8,
               child: GridView.builder(
                 itemCount: 9,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/checkwinner.dart';
 import 'dart:math';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class AIPage extends StatefulWidget {
+  const AIPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<AIPage> createState() => _AIPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _AIPageState extends State<AIPage> {
   List<String> displayExOhio = ['', '', '', '', '', '', '', '', ''];
 
   int aiPoint = 0;
@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
       if (checkwinner == null && !displayExOhio.contains('')) {
         showDialog(
             context: context,
-            builder: (context) => const AlertDialog(title: Text("Draw")));
+            builder: (context) => const AlertDialog(title: Center(child: Text("Draw"))));
       }
 
 
@@ -159,10 +159,10 @@ class _HomePageState extends State<HomePage> {
             ],
           )),
           const SizedBox(
-            height: 40,
+            height: 20,
           ),
           Expanded(
-            flex: 2,
+            flex: 8,
             child: GridView.builder(
                 itemCount: 9,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -183,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                   );
                 }),
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 40),
           TextButton(
             style: ButtonStyle(
               backgroundColor:
