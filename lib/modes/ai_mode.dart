@@ -15,6 +15,9 @@ class _AIPageState extends State<AIPage> {
   int aiPoint = 0;
   int yourPoint = 0;
 
+  bool inforDisplay = false;
+
+
 
   String displayExOh = 'o';
   void _tapped(int index) {
@@ -29,13 +32,17 @@ class _AIPageState extends State<AIPage> {
         showDialog(
             context: context,
             builder: (context) => AlertDialog(
-                  title: Text(
-                      "The winner is ${checkwinner == 'x' ? 'AI' : 'You'}"),
+                  title: Center(
+                    child: Text(
+                        "The winner is ${checkwinner == 'x' ? 'AI' : 'You'}"),
+                  ),
                 ));
-        if (checkwinner == 'x') {
+        if (checkwinner == 'x' && inforDisplay == false) {
           ++aiPoint;
-        } else {
+          inforDisplay = true;
+        } else if(checkwinner == 'o' &&  inforDisplay == false) {
           ++yourPoint;
+          inforDisplay = true;
         }
       }
 
@@ -70,13 +77,17 @@ class _AIPageState extends State<AIPage> {
         showDialog(
             context: context,
             builder: (context) => AlertDialog(
-                  title: Text(
-                      "The winner is ${checkwinner2 == 'x' ? 'AI' : 'You'}"),
+                  title: Center(
+                    child: Text(
+                        "The winner is ${checkwinner2 == 'x' ? 'AI' : 'You'}"),
+                  ),
                 ));
-        if (checkwinner2 == 'x') {
+        if (checkwinner2 == 'x' && inforDisplay == false) {
           ++aiPoint;
-        } else {
+          inforDisplay = true;
+        } else if(checkwinner2 == 'o' &&  inforDisplay == false) {
           ++yourPoint;
+          inforDisplay = true;
         }
       }
     });
@@ -159,7 +170,7 @@ class _AIPageState extends State<AIPage> {
             ],
           )),
           const SizedBox(
-            height: 20,
+            height: 40,
           ),
           Expanded(
             flex: 8,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tic_tac_toe/mode.dart';
 
 class StartPage extends StatelessWidget {

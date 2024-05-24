@@ -15,6 +15,8 @@ class _PlayerPageState extends State<PlayerPage> {
   int player1 = 0;
   int player2 = 0;
 
+  bool inforDisplay = false;
+
   String displayExOh = "x";
   void _tapped(int index) {
     setState(() {
@@ -34,14 +36,17 @@ class _PlayerPageState extends State<PlayerPage> {
         showDialog(
           context: context, 
           builder: (context) => AlertDialog(
-            title: Text("The winner is ${checkwinner == 'x'? 'player 2': 'player 1'}"),
+            title: Center(child: Text("The winner is ${checkwinner == 'x'? 'player 2': 'player 1'}")),
           )
         );
-        if(checkwinner == 'x'){
+        if(checkwinner == 'x' && inforDisplay == false){
           ++player2;
+          inforDisplay = true;
+
         }
-        else {
+        else if(checkwinner == 'o' && inforDisplay == false) {
           ++player1;
+          inforDisplay = true;
         }
       }
 
@@ -49,7 +54,7 @@ class _PlayerPageState extends State<PlayerPage> {
         showDialog(
           context: context, 
           builder: (context) => const AlertDialog(
-            title: Text("Draw")
+            title: Center(child: Text("Draw"))
           ));
       }
     });
